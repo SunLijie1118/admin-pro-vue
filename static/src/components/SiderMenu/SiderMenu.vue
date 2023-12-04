@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider v-model:collapsed="collapsed" collapsible>
+  <a-layout-sider :collapsed="collapsed" collapsible>
     <div id="logo" class="logo">
       <slot name="menuHeaderRender">
         <router-link to="/">
@@ -9,7 +9,7 @@
       </slot>
     </div>
     <template #trigger>
-      <div>
+      <div @click="toggleCollapse">
         <menu-unfold-outlined v-if="collapsed" />
         <menu-fold-outlined v-else />
       </div>
@@ -21,7 +21,9 @@
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useRoute, useRouter } from 'vue-router'
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -30,23 +32,22 @@ import {
 import MenuItem from './MenuItem.vue';
 // 导入菜单路由数据
 import { routes } from '@/router/routes';
-import { useRoute, useRouter } from 'vue-router'
-const router = useRouter()
-const route = useRoute()
+// 导入menu中collapsed状态
+import { useMenuStore } from '@/stores';
 
 const props = defineProps({
   title: {
     type: String,
     default: 'Ant Design Pro'
   },
-  collapsed: {
-    type: Boolean,
-    default: false,
-  }
 });
 
+const menuStore = useMenuStore()
+const { collapsed } = storeToRefs(menuStore);
+const router = useRouter()
+const route = useRoute()
+
 const openKeys = ref<string[]>(['']);
-const collapsed = ref<boolean>(props.collapsed);
 
 const handleClick = (menu: any) => {
   router.push(menu.key);
@@ -55,6 +56,11 @@ const handleClick = (menu: any) => {
 const handleOpen = (keys: string[]) => {
   openKeys.value = keys;
 }
+
+const toggleCollapse = () => {
+  menuStore.toggleCollapsed();
+}
+
 </script>
 
 <style lang="less" scoped>
