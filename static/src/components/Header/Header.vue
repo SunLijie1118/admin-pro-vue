@@ -1,9 +1,10 @@
 <template>
-  <a-layout-header style="background: #fff; padding: 0">
-    <div class="trigger" @click="toggle">
+  <a-layout-header class="header">
+    <div class="trigger flex align-middle" @click="toggle">
       <menu-unfold-outlined v-if="collapsed" />
       <menu-fold-outlined v-else />
     </div>
+    <div style="flex: 1 1 0%;"></div>
     <RightContent />
   </a-layout-header>
 </template>
@@ -24,4 +25,20 @@ const toggle = () => {
   menuStore.toggleCollapsed();
 }
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.header {
+  background-color: #fff;
+  padding: 0 16px;
+  height: 48px;
+  line-height: 48px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+}
+
+.trigger {
+  margin-left: 8px;
+  font-size: 20px;
+  cursor: pointer;
+}
+</style>

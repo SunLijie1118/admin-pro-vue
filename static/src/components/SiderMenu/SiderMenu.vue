@@ -9,7 +9,7 @@
       </slot>
     </div>
     <template #trigger>
-      <div @click="toggleCollapse">
+      <div class="trigger" @click="toggleCollapse">
         <menu-unfold-outlined v-if="collapsed" />
         <menu-fold-outlined v-else />
       </div>
@@ -96,6 +96,8 @@ const toggleCollapse = () => {
       vertical-align: middle;
     }
   }
-
+}
+.trigger{
+  font-size: 16px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <a-layout style="min-height: 100vh">
-    <SiderMenu :title="'Ant Pro'"/>
+    <SiderMenu :title="'Admin Pro'"/>
     <a-layout style="min-height: 100vh">
       <Header />
     </a-layout>

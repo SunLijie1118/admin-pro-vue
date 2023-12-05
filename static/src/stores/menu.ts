@@ -7,9 +7,14 @@ export const useMenuStore = defineStore('menu', () => {
   function toggleCollapsed() {
     collapsed.value = !collapsed.value;
   };
-
+  const currentLang = ref('zh-CN');
+  function setLang(lang: string) {
+    currentLang.value = lang;
+  }
   return {
     collapsed,
-    toggleCollapsed
+    currentLang,
+    toggleCollapsed,
+    setLang
   }
 })
