@@ -17,7 +17,7 @@
                 </div>
                 <div>
                   <h4 class="">{{ data.title }}</h4>
-                  <div>{{ data.datetime }}</div>
+                  <div>{{ $dateToToday(data.datetime) }}</div>
                 </div>
               </div>
             </div>
@@ -40,7 +40,7 @@
                 <div>
                   <h4 class="">{{ data.title }}</h4>
                   <div>{{ data.description }}</div>
-                  <div>{{ data.datetime }}</div>
+                  <div>{{ $dateToToday(data.datetime) }}</div>
                 </div>
               </div>
             </div>
@@ -175,3 +175,5 @@ onMounted(() => {
   }
 }
 </style>
+@/core/types/index
+@/types/index
