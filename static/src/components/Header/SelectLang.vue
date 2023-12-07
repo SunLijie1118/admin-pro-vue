@@ -56,4 +56,3 @@ const setLocalesLang = (lang: string) => {
   background-color: rgba(0, 0, 0, 0.025);
 }
 </style>
-@/core/types/index
