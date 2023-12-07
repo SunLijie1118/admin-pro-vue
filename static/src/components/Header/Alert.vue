@@ -15,9 +15,9 @@
                 <div class="item-img">
                   <img :src="data.avatar" alt="" width="30">
                 </div>
-                <div>
-                  <h4 class="">{{ data.title }}</h4>
-                  <div>{{ $dateToToday(data.datetime) }}</div>
+                <div class="item-content">
+                  <h4 class="item-title">{{ data.title }}</h4>
+                  <div class="item-time">{{ $dateToToday(data.datetime) }}</div>
                 </div>
               </div>
             </div>
@@ -37,15 +37,15 @@
                 <div class="item-img">
                   <img :src="data.avatar" alt="" width="30">
                 </div>
-                <div>
-                  <h4 class="">{{ data.title }}</h4>
-                  <div>{{ data.description }}</div>
-                  <div>{{ $dateToToday(data.datetime) }}</div>
+                <div class="item-content">
+                  <h4 class="item-title">{{ data.title }}</h4>
+                  <div class="item-desc">{{ data.description }}</div>
+                  <div class="item-time">{{ $dateToToday(data.datetime) }}</div>
                 </div>
               </div>
             </div>
-            <div class="bottomBar" v-if="notification.length">
-              <span>Empty Message</span>
+            <div class="bottomBar" v-if="message.length">
+              <span @click="emptyMess">Empty Message</span>
               <span>See more</span>
             </div>
             <a-empty v-if="!message.length" :description="'You have read all messages'"
@@ -55,17 +55,17 @@
         <a-tab-pane key="todo" tab="To do">
           <a-spin :spinning="spinning">
             <div class="container" v-if="todo.length">
-              <div v-for="data in todo" :key="data.id" class="item" :class="{ read: data.read }"
+              <div v-for="data in todo" :key="data.id" class="item item-todo" :class="{ read: data.read }"
                 @click.prevent="handleItem(data)">
-                <div>
-                  <h4 class="">{{ data.title }}</h4>
+                <div class="item-top">
+                  <h4 class="item-title">{{ data.title }}</h4>
                   <a-tag :color="todoStatusMap[data.status] || 'default'">{{ data.extra }}</a-tag>
                 </div>
-                <div>{{ data.description }}</div>
+                <div class="item-desc">{{ data.description }}</div>
               </div>
             </div>
-            <div class="bottomBar" v-if="notification.length">
-              <span>Empty To do</span>
+            <div class="bottomBar" v-if="todo.length">
+              <span @click="emptyTodo">Empty To do</span>
             </div>
             <a-empty v-if="!todo.length" :description="'You have completed all to-dos'"
               :image="'https://gw.alipayobjects.com/zos/rmsportal/sAuJeJzSKbUmHfBQRzmZ.svg'" class="py-10" />
@@ -118,6 +118,18 @@ const emptyNoti = () => {
   notification.value = [];
 }
 
+const emptyMess = () => {
+  const temp = message.value.filter((item: any) => { return !item.read; });
+  count.value = count.value - temp.length || 0;
+  message.value = [];
+}
+
+const emptyTodo = () => {
+  const temp = todo.value.filter((item: any) => { return !item.read; });
+  count.value = count.value - temp.length || 0;
+  todo.value = [];
+}
+
 onMounted(() => {
   getNoticesData()
 });
@@ -153,6 +165,30 @@ onMounted(() => {
     .item-img {
       @apply mr-4;
     }
+
+    .item-title {
+      @apply mb-2;
+    }
+
+    .item-desc,
+    .item-time {
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 12px;
+      line-height: 20px;
+      @apply mt-1;
+    }
+  }
+
+  .item-todo {
+    @apply block;
+
+    .item-top {
+      @apply flex justify-between mb-2;
+
+      .item-title {
+        @apply mb-0;
+      }
+    }
   }
 
   .read {
@@ -175,5 +211,3 @@ onMounted(() => {
   }
 }
 </style>
-@/core/types/index
-@/types/index
