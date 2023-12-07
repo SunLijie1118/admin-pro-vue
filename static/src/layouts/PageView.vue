@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <div class="breadcrumb">
+    <div class="breadcrumb" v-if="showBread">
       <a-breadcrumb>
         <template v-for="(bread, index) in breadcrumbs" :key="bread.name">
           <a-breadcrumb-item v-if="index !== breadcrumbs.length - 1">
@@ -24,6 +24,12 @@ import type { breadcrumb } from '@/types';
 // 导入menu中breadcrumbMap状态
 import { useMenuStore } from '@/stores';
 
+const props = defineProps({
+  showBread: {
+    type: Boolean,
+    default: true
+  },
+});
 const route = useRoute()
 const menuStore = useMenuStore()
 const { breadcrumbMap } = storeToRefs(menuStore);

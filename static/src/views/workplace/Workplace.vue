@@ -1,5 +1,5 @@
 <template>
-  <PageView>
+  <PageView :showBread="false">
     WORKPLACE
   </PageView>
 </template>
