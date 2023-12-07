@@ -66,10 +66,6 @@ onMounted(() => {
 </script>
 
 <style lang="less" scoped>
-.page-container {
-  margin: -24px -24px 0;
-}
-
 .breadcrumb {
   background-color: #fff;
   padding: 20px 24px;

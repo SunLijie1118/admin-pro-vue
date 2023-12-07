@@ -17,9 +17,3 @@ import Header from '@/components/Header/Header.vue';
 import RouteView from './RouteView.vue';
 
 </script>
-
-<style lang="less" scoped>
-.ant-layout-content {
-  margin: 24px;
-}
-</style>
