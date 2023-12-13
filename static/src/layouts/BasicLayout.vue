@@ -3,7 +3,7 @@
     <SiderMenu :title="'Admin Pro'" />
     <a-layout style="min-height: 100vh">
       <Header />
-      <a-layout-content>
+      <a-layout-content style="max-height: calc(100vh - 48px); overflow: auto;">
         <RouteView></RouteView>
       </a-layout-content>
     </a-layout>

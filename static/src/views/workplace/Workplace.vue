@@ -25,17 +25,124 @@
         </div>
       </div>
     </div>
-
+    <a-row class="page-content">
+      <a-col :xl="16" :lg="24" :md="24" :sm="24" :xs="24">
+        <a-card title="进行中的项目">
+          <template #extra><a href="#">全部项目</a></template>
+          <a-card-grid style="width: calc(100% / 3);" v-for="item in projects" :key="item.id">
+            <a-card-meta :title="item.title" :description="item.description">
+              <template #avatar>
+                <a-avatar :src="item.logo" />
+              </template>
+            </a-card-meta>
+            <div class="project-item">
+              <a :href="item.href">{{ item.member }}</a>
+              <span class="datetime">{{ $dateToToday(item.updatedAt) }}</span>
+            </div>
+          </a-card-grid>
+        </a-card>
+        <a-card title="动态" class="mt-6">
+          <a-list>
+            <a-list-item v-for="item in activities" :key="item.id">
+              <a-list-item-meta>
+                <template #avatar>
+                  <a-avatar :src="item.user.avatar" />
+                </template>
+                <template #description>
+                  <a @click="gotoUser(item)" class="pr-2 a-color">{{ item.user.name }}</a>
+                  <span v-html="parseTemplate(item)"></span>
+                </template>
+              </a-list-item-meta>
+              <div class="project-item">
+                <span class="datetime">{{ $dateToToday(item.updatedAt) }}</span>
+              </div>
+            </a-list-item>
+          </a-list>
+        </a-card>
+      </a-col>
+      <a-col :xl="8" :lg="24" :md="24" :sm="24" :xs="24">
+        <a-card title="快速开始 / 便捷导航" class="ml-6">
+          <div class="item-group">
+            <a>操作一</a>
+            <a>操作二</a>
+            <a>操作三</a>
+            <a>操作四</a>
+            <a>操作五</a>
+            <a>操作六</a>
+            <a-button size="small" type="primary" ghost>
+              <template #icon>
+                <PlusOutlined style="position: relative;top: -2px;" />
+              </template>添加
+            </a-button>
+          </div>
+        </a-card>
+        <a-card title="XX 指数" class="mt-6 ml-6">
+          <a-spin :spinning="radarSpinning">
+            <div style="height: 400px;">
+              <Radar v-if="!radarSpinning && radarData.length" :data="radarData" />
+            </div>
+          </a-spin>
+        </a-card>
+      </a-col>
+    </a-row>
   </PageView>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { PlusOutlined } from '@ant-design/icons-vue';
 import PageView from '@/layouts/PageView.vue';
 import { timeFix, welcome } from '@/utils/utils';
+import { getProjectNotice, getActivities, FakeChartData } from '@/api/message';
+import type { project, activity } from '@/types';
+import Radar from '@/components/Chart/Radar.vue';
 
 const currentUser = ref<{ name: string; avatar: string }>({
   name: 'Serati Ma',
   avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
+});
+
+const projects = ref<Array<project>>([]);
+const activities = ref<Array<activity>>([]);
+const radarData = ref<Array<{ name: string; label: string; value: any; }>>([]);
+const radarSpinning = ref<boolean>(false);
+
+const getProjectNoticeData = () => {
+  getProjectNotice().then((data: any) => {
+    projects.value = data.data.default;
+  });
+}
+
+const getActivitiesData = () => {
+  getActivities().then((data: any) => {
+    activities.value = data.data.default;
+  })
+}
+
+const getFakeChartData = () => {
+  radarSpinning.value = true;
+  FakeChartData().then((data: any) => {
+    radarSpinning.value = false;
+    radarData.value = data.data.default.radarData;
+  })
+}
+
+const parseTemplate = (item: any) => {
+  return item.template.replace(/@\{(\w+)\}/g, (match: any, key: string) => {
+    if (item[key] && item[key].name && item[key].link) {
+      return `<a href="${item[key].link}" style="color: #1677ff">${item[key].name}</a>`;
+    }
+    return match;
+  });
+}
+
+const gotoUser = (item: activity) => {
+  console.log(item);
+}
+
+onMounted(() => {
+  getProjectNoticeData();
+  getActivitiesData();
+  getFakeChartData();
 });
 
 </script>
@@ -105,5 +212,51 @@ const currentUser = ref<{ name: string; avatar: string }>({
       content: "";
     }
   }
+}
+
+.page-content {
+  @apply m-6;
+}
+
+.project-item {
+  display: flex;
+  margin-top: 12px;
+  overflow: hidden;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  margin-left: 48px;
+
+  a {
+    color: rgba(0, 0, 0, 0.45);
+    display: inline-block;
+    flex: 1 1 0;
+
+    &:hover {
+      color: #1890ff;
+    }
+  }
+
+  .datetime {
+    color: rgba(0, 0, 0, 0.25);
+    flex: 0 0 auto;
+    float: right;
+  }
+}
+
+.a-color {
+  color: #1677ff;
+}
+
+.item-group {
+
+  a {
+    color: rgba(0, 0, 0, 0.65);
+    display: inline-block;
+    font-size: 14px;
+    margin-bottom: 13px;
+    width: 25%;
+  }
+
 }
 </style>

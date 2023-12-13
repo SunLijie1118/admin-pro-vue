@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "vite",
+    "start": "vite --host",
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@antv/g2": "^5.1.11",
     "ant-design-vue": "^4.0.6",
     "axios": "^1.6.2",
     "less": "^4.2.0",
