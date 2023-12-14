@@ -3,98 +3,86 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import { Chart } from "@antv/g2";
+import { onMounted, ref, onUnmounted } from "vue";
+import * as echarts from 'echarts';
 
 const props = defineProps({
-  data: {
-    type: Array<{ name: string; label: string; value: any }>,
+  echartsRadar: {
+    type: Object,
     required: true
   }
 });
 
 const container = ref(null);
+const chart = ref<any>(null);
+const resizeNamespace = '' + Date.now();
 
 onMounted(() => {
-  renderBarChart(container.value);
+  initChart();
+  renderChart();
 });
 
-const renderBarChart = (container: any) => {
-  const chart = new Chart({
-    container,
-    autoFit: true,
-    height: 400
-  });
-  const position: string[] = [];
-  props.data.forEach(item => {
-    if (position.indexOf(item.label) === -1) {
-      position.push(item.label);
-    }
-  });
-  console.log(position);
+onUnmounted(() => {
+  relieve();
+});
 
-  const axis = {
-    zIndex: 1,
-    labelStroke: '#fff',
-    labelStrokeWidth: 5,
-    labelFontSize: 10,
-    labelStrokeLineJoin: 'round',
-    titleStroke: '#fff',
-    titleFontSize: 10,
-    titleStrokeWidth: 5,
-    titleStrokeLineJoin: 'round',
-    lineStroke: 'black',
-    tickStroke: 'black',
-    lineStrokeWidth: 1,
+const initChart = () => {
+  chart.value = echarts.init(container.value);
+  window.addEventListener(`resize.${resizeNamespace}`, function () {
+    chart.value.resize();
+  });
+}
+
+const relieve = () => {
+  window.removeEventListener(`resize.${resizeNamespace}`, function () {
+    chart.value.resize();
+  });
+  if (chart.value) {
+    chart.value.dispose();
+  }
+}
+const renderChart = () => {
+  const option = {
+    tooltip: {
+      show: true,
+    },
+    legend: {
+      show: false,
+      data: [...props.echartsRadar.legend]
+    },
+    radar: {
+      indicator: [...props.echartsRadar.indicator],
+      splitArea: {
+        show: false,
+      },
+      axisLine: { //指向外圈文本的分隔线样式
+        lineStyle: {
+          color: '#fafafa',
+          type: 'dashed'
+        }
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#eaeaea', // 分隔线颜色
+          width: 1, // 分隔线线宽
+        }
+      },
+    },
+    series: [
+      {
+        name: props.echartsRadar.name,
+        type: 'radar',
+        data: [...props.echartsRadar.seriesData],
+      }
+    ]
   };
-
-  // chart.coordinate({ type: 'polar' });
-
-  // chart
-  //   .data(props.data)
-  //   .scale('x', { padding: 0.5, align: 0 })
-  //   .scale('y', { tickCount: 5 })
-  //   .axis('x', { title: false })
-  //   .axis('y', { zIndex: 1, title: false });
-
-  // chart
-  //   .line()
-  //   .encode('x', 'label')
-  //   .encode('y', 'value')
-  //   .encode('color', 'name')
-  //   .style('lineWidth', 2)
-  //   .legend(false);
-
-  // chart.interaction('tooltip', { crosshairsLineDash: [4, 4] });
-  chart.coordinate({ type: 'radar' });
-
-  chart
-    .line()
-    .data(props.data)
-    .encode('position', ['引用', '口碑', '产量', '贡献', '热度'])
-    .encode('color', 'weight (lb)')
-    .style('strokeWidth', 1.5)
-    .style('strokeOpacity', 0.4)
-    .scale('color', {
-      palette: 'brBG',
-      offset: (t) => 1 - t,
-    })
-    .legend(false)
-  // .axis('position', axis)
-  // .axis('position1', axis)
-  // .axis('position2', axis)
-  // .axis('position3', axis)
-  // .axis('position4', axis)
-  // .axis('position5', axis)
-  // .axis('position6', axis)
-  // .axis('position7', axis);
-
-  chart.interaction('tooltip', { series: false });
-
-  // 渲染可视化
-  chart.render();
-
-  return chart;
+  chart.value.setOption(option);
 }
 
 </script>
+<style lang="less" scoped>
+div {
+  width: 100%;
+  height: 100%;
+}
+</style>

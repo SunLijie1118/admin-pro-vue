@@ -78,10 +78,22 @@
         </a-card>
         <a-card title="XX 指数" class="mt-6 ml-6">
           <a-spin :spinning="radarSpinning">
-            <div style="height: 400px;">
-              <Radar v-if="!radarSpinning && radarData.length" :data="radarData" />
+            <div style="height: 360px;">
+              <Radar v-if="!radarSpinning && radarData.legend.length" :echartsRadar="radarData" />
             </div>
           </a-spin>
+        </a-card>
+        <a-card title="团队" class="mt-6 ml-6">
+          <div class="members">
+            <a-row>
+              <a-col :span="12" v-for="(item, index) in projects" :key="index">
+                <a :href="item.href">
+                  <a-avatar size="small" :src="item.logo" />
+                  <span class="member">{{ item.member }}</span>
+                </a>
+              </a-col>
+            </a-row>
+          </div>
         </a-card>
       </a-col>
     </a-row>
@@ -103,15 +115,18 @@ const currentUser = ref<{ name: string; avatar: string }>({
 
 const projects = ref<Array<project>>([]);
 const activities = ref<Array<activity>>([]);
-const radarData = ref<Array<{ name: string; label: string; value: any; }>>([]);
+let radarData: any = {
+  name: 'XX 指数',
+  indicator: [],
+  legend: [],
+  seriesData: []
+};
 const radarSpinning = ref<boolean>(false);
-
 const getProjectNoticeData = () => {
   getProjectNotice().then((data: any) => {
     projects.value = data.data.default;
   });
 }
-
 const getActivitiesData = () => {
   getActivities().then((data: any) => {
     activities.value = data.data.default;
@@ -122,7 +137,33 @@ const getFakeChartData = () => {
   radarSpinning.value = true;
   FakeChartData().then((data: any) => {
     radarSpinning.value = false;
-    radarData.value = data.data.default.radarData;
+    const temp = data.data.default.radarData;
+    const legend = Object.keys(temp);
+    const seriesData: any = [];
+    const indicatorTemp: any = {};
+    legend.forEach(key => {
+      const values: number[] = [];
+      temp[key].forEach((item: { name: string; value: number }) => {
+        values.push(item.value);
+        indicatorTemp[item.name] = true;
+      });
+      seriesData.push({
+        name: key,
+        value: values
+      });
+    });
+    const indicator: any = [];
+    Object.keys(indicatorTemp).forEach((key: string) => {
+      indicator.push({
+        name: key
+      });
+    })
+    radarData = {
+      ...radarData,
+      legend,
+      indicator,
+      seriesData
+    };
   })
 }
 
@@ -257,6 +298,31 @@ onMounted(() => {
     margin-bottom: 13px;
     width: 25%;
   }
+}
 
+.members {
+  a {
+    display: block;
+    margin: 12px 0;
+    line-height: 24px;
+    height: 24px;
+
+    .member {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.65);
+      line-height: 24px;
+      max-width: 100px;
+      vertical-align: top;
+      margin-left: 12px;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    &:hover {
+      span {
+        color: #1890ff;
+      }
+    }
+  }
 }
 </style>

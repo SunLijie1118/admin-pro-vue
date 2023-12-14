@@ -13,9 +13,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@antv/g2": "^5.1.11",
     "ant-design-vue": "^4.0.6",
     "axios": "^1.6.2",
+    "echarts": "^5.4.3",
     "less": "^4.2.0",
     "pinia": "^2.1.7",
     "vue": "^3.3.4",
