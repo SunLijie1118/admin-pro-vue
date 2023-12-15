@@ -57,16 +57,19 @@ const renderChart = () => {
       },
       axisLine: { //指向外圈文本的分隔线样式
         lineStyle: {
-          color: '#fafafa',
+          color: '#eaeaea',
           type: 'dashed'
         }
       },
       splitLine: {
         lineStyle: {
           color: '#eaeaea', // 分隔线颜色
-          width: 1, // 分隔线线宽
+          width: 1,
         }
       },
+      axisName: {
+        show: false
+      }
     },
     series: [
       {
