@@ -27,19 +27,19 @@ export const routes = [
           {
             path: '/dashboard/welcome',
             name: 'welcome',
-            meta: { title: '欢迎页', },
+            meta: { title: '欢迎页', icon: FieldTimeOutlined },
             component: () => import('@/views/dashboard/Welcome.vue'),
           },
           {
             path: '/dashboard/analysis',
             name: 'analysis',
-            meta: { title: '分析页', },
+            meta: { title: '分析页', icon: HeartOutlined },
             component: () => import('@/views/dashboard/Analysis.vue'),
           },
           {
             path: '/dashboard/monitor',
             name: 'monitor',
-            meta: { title: '监控页', },
+            meta: { title: '监控页', icon: HeartOutlined },
             component: () => import('@/views/dashboard/Monitor.vue'),
           },
         ]
