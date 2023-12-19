@@ -16,7 +16,7 @@
     </template>
     <a-menu :selectedKeys="[route.path]" theme="dark" mode="inline" :openKeys="openKeys" @click="handleClick"
       @openChange="handleOpen">
-      <MenuItem v-for="item in routes[0].children" :item="item" :key="item.path" />
+      <menu-item v-for="item in routes[0].children" :item="item" :key="item.path" />
     </a-menu>
   </a-layout-sider>
 </template>

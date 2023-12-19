@@ -13,7 +13,7 @@
     </template>
     <template #title>{{ item.meta.title }}</template>
     <!-- 循环渲染子菜单时要判断子菜单是否又包含子菜单，如果包含则调用自身组件递归渲染 -->
-    <MenuItem v-for="child in item.children" :item="child" :key="child.path" />
+    <menu-item v-for="child in item.children" :item="child" :key="child.path" />
   </a-sub-menu>
 </template>
 <script lang="ts" setup>

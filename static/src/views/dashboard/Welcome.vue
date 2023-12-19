@@ -1,5 +1,5 @@
 <template>
-  <PageView :showBread="false">
+  <page-view :showBread="false">
     <a-card class="welcome-card">
       <div class="content-title">
         {{ timeFix() }}，{{ currentUser.name }}<span class="welcome-text">，{{ welcome() }}</span>
@@ -76,7 +76,7 @@
         </a-card>
       </a-col>
     </a-row>
-  </PageView>
+  </page-view>
 </template>
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';

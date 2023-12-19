@@ -40,6 +40,7 @@ declare module 'vue' {
     ATag: typeof import('ant-design-vue/es')['Tag']
     Avator: typeof import('./src/components/Header/Avator.vue')['default']
     AvtivityH: typeof import('./src/components/AvtivityH.vue')['default']
+    ChartCard: typeof import('./src/components/Chart/ChartCard.vue')['default']
     Header: typeof import('./src/components/Header/Header.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']

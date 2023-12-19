@@ -1,5 +1,5 @@
 <template>
-  <PageView :showBread="false">
+  <page-view :showBread="false">
     <div class="page-header-heading">工作台</div>
     <div class="page-header-content">
       <div class="left-info">
@@ -79,7 +79,7 @@
         <a-card title="XX 指数" class="mt-6 ml-6">
           <a-spin :spinning="radarSpinning">
             <div style="height: 360px;">
-              <Radar v-if="!radarSpinning && radarData.legend.length" :echartsRadar="radarData" />
+              <radar v-if="!radarSpinning && radarData.legend.length" :echartsRadar="radarData" />
             </div>
           </a-spin>
         </a-card>
@@ -97,7 +97,7 @@
         </a-card>
       </a-col>
     </a-row>
-  </PageView>
+  </page-view>
 </template>
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';

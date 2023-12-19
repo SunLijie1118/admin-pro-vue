@@ -1,7 +1,7 @@
 <template>
-  <Alert />
-  <Avator :current-user="{ name: 'admin' }" />
-  <SelectLang />
+  <alert />
+  <avator :current-user="{ name: 'admin' }" />
+  <select-lang />
 </template>
 
 <script lang="ts" setup>
