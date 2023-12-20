@@ -38,8 +38,10 @@ declare module 'vue' {
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
     ATag: typeof import('ant-design-vue/es')['Tag']
+    ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     Avator: typeof import('./src/components/Header/Avator.vue')['default']
     AvtivityH: typeof import('./src/components/AvtivityH.vue')['default']
+    Bar: typeof import('./src/components/Chart/Bar.vue')['default']
     ChartCard: typeof import('./src/components/Chart/ChartCard.vue')['default']
     Header: typeof import('./src/components/Header/Header.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
@@ -47,7 +49,9 @@ declare module 'vue' {
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
+    Line: typeof import('./src/components/Chart/Line.vue')['default']
     MenuItem: typeof import('./src/components/SiderMenu/MenuItem.vue')['default']
+    MiniProgress: typeof import('./src/components/Chart/MiniProgress.vue')['default']
     Radar: typeof import('./src/components/Chart/Radar.vue')['default']
     RightContent: typeof import('./src/components/Header/RightContent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -55,6 +59,7 @@ declare module 'vue' {
     SelectLang: typeof import('./src/components/Header/SelectLang.vue')['default']
     SiderMenu: typeof import('./src/components/SiderMenu/SiderMenu.vue')['default']
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
+    Trend: typeof import('./src/components/Chart/Trend.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
   }
 }
