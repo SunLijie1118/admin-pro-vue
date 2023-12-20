@@ -62,9 +62,25 @@
         </chart-card>
       </a-col>
     </a-row>
+    <a-card class="mt-6 ml-6 mr-6" :tab-list="tabListTitle" :active-tab-key="titleKey" @tabChange="onTabChange">
+      <p v-if="titleKey === '销售额'">article content</p>
+      <p v-else-if="titleKey === '访问量'">app content</p>
+      <template #tabBarExtraContent>
+        <div class="extra-item">
+          <a-radio-group v-model:value="dateValue" @change="dateChange">
+            <a-radio-button value="today">今日</a-radio-button>
+            <a-radio-button value="week">本周</a-radio-button>
+            <a-radio-button value="mouth">本月</a-radio-button>
+            <a-radio-button value="year">全年</a-radio-button>
+          </a-radio-group>
+        </div>
+        <a-range-picker v-model:value="datePickerValue" />
+      </template>
+    </a-card>
   </page-view>
 </template>
 <script lang="ts" setup>
+import { ref, watch } from 'vue';
 import { InfoCircleOutlined } from '@ant-design/icons-vue';
 import PageView from '@/layouts/PageView.vue';
 import ChartCard from '@/components/Chart/ChartCard.vue';
@@ -93,4 +109,53 @@ for (let i = 0; i < 15; i++) {
   visitLine.seriesData.push(Math.round(Math.random() * 20));
   countBar.seriesData.push(Math.round(Math.random() * 100));
 }
+
+const tabListTitle = [
+  {
+    key: '销售额',
+    tab: '销售额',
+  },
+  {
+    key: '访问量',
+    tab: '访问量',
+  },
+];
+const titleKey = ref<'销售额' | '访问量'>('销售额');
+const onTabChange = (key: '销售额' | '访问量') => {
+  titleKey.value = key;
+}
+const dateValue = ref<string>('today');
+const datePickerValue = ref([dayjs(), dayjs()]);
+const dateChange = () => {
+  switch (dateValue.value) {
+    case 'today':
+      datePickerValue.value = [dayjs(), dayjs()];
+      break;
+    case 'week':
+      datePickerValue.value = [dayjs().subtract(7, 'day'), dayjs()];
+      break;
+    case 'mouth':
+      datePickerValue.value = [dayjs().subtract(30, 'day'), dayjs()];
+      break;
+    case 'year':
+      datePickerValue.value = [dayjs().subtract(365, 'day'), dayjs()];
+      break;
+    default:
+      datePickerValue.value = [];
+      break;
+  }
+}
+watch(datePickerValue, () => {
+  dateValue.value = '';
+});
 </script>
+<style lang="less" scoped>
+.extra-item {
+  display: inline-block;
+  margin-right: 24px;
+
+  a {
+    margin-left: 24px;
+  }
+}
+</style>
