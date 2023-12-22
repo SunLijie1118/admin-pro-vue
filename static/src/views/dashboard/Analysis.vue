@@ -74,7 +74,7 @@
             <a-radio-button value="year">全年</a-radio-button>
           </a-radio-group>
         </div>
-        <a-range-picker v-model:value="datePickerValue" />
+        <a-range-picker v-model:value="datePickerValue" @change="rangePickerChange" />
       </template>
     </a-card>
   </page-view>
@@ -145,9 +145,13 @@ const dateChange = () => {
       break;
   }
 }
-watch(datePickerValue, () => {
+const rangePickerChange = () => {
   dateValue.value = '';
+}
+watch(datePickerValue, () => {
+  // dateValue.value = '';
 });
+
 </script>
 <style lang="less" scoped>
 .extra-item {
