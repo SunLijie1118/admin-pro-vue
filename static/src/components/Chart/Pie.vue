@@ -7,7 +7,7 @@ import { onMounted, ref, onUnmounted, watch } from "vue";
 import * as echarts from 'echarts';
 
 const props = defineProps({
-  echartsBar: {
+  echartsPie: {
     type: Object,
     required: true
   }
@@ -17,7 +17,7 @@ const container = ref(null);
 let chart: any = null;
 const resizeNamespace = '' + Date.now();
 
-watch(props.echartsBar, () => {
+watch(props.echartsPie, () => {
   if (!chart) {
     initChart();
   }
@@ -50,51 +50,46 @@ const relieve = () => {
 }
 const renderChart = () => {
   const option = {
-    grid: {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      containLabel: false,
-    },
-    color: ['#3AA1FF'],
     tooltip: {
-      show: true,
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
+      trigger: 'item',
     },
-    xAxis: {
-      type: 'category',
-      data: [...props.echartsBar.axisData],
-      axisLine: {
-        show: false,
-      }
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
+    legend: {
+      type: 'scroll',
+      orient: 'vertical',
+      right: 20,
+      top: 'center'
     },
     series: [
       {
-        name: props.echartsBar.name,
-        type: 'bar',
-        data: [...props.echartsBar.seriesData],
-        barWidth: '60%'
+        name: props.echartsPie.name,
+        type: 'pie',
+        radius: ['60%', '85%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 28,
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [...props.echartsPie.seriesData],
       }
     ]
   };
-  if (props.echartsBar.customFunc && typeof props.echartsBar.customFunc === 'function') {
-    props.echartsBar.customFunc(option);
+  if (props.echartsPie.customFunc && typeof props.echartsPie.customFunc === 'function') {
+    props.echartsPie.customFunc(option);
   }
   chart.setOption(option);
 }

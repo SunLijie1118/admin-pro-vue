@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, onUnmounted } from "vue";
+import { onMounted, ref, onUnmounted, watch } from "vue";
 import * as echarts from 'echarts';
 
 const props = defineProps({
@@ -16,7 +16,10 @@ const props = defineProps({
 const container = ref(null);
 const chart = ref<any>(null);
 const resizeNamespace = '' + Date.now();
-
+watch(props.echartsRadar, (value, oldValue) => {
+  console.log(value);
+  console.log(oldValue);
+});
 onMounted(() => {
   initChart();
   renderChart();

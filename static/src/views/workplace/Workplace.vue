@@ -115,12 +115,12 @@ const currentUser = ref<{ name: string; avatar: string }>({
 
 const projects = ref<Array<project>>([]);
 const activities = ref<Array<activity>>([]);
-let radarData: any = {
+let radarData = ref<any>({
   name: 'XX 指数',
   indicator: [],
   legend: [],
   seriesData: []
-};
+});
 const radarSpinning = ref<boolean>(false);
 const getProjectNoticeData = () => {
   getProjectNotice().then((data: any) => {
@@ -158,8 +158,8 @@ const getFakeChartData = () => {
         name: key
       });
     })
-    radarData = {
-      ...radarData,
+    radarData.value = {
+      ...radarData.value,
       legend,
       indicator,
       seriesData
