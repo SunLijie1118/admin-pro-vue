@@ -63,7 +63,6 @@ rate.value = (props.percentage === null ? Math.abs(props.value - props.target) *
     &.down {
       margin-left: 6px;
       position: relative;
-      top: -3px;
     }
 
     &.up {

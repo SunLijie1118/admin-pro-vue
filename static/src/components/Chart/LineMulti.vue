@@ -7,7 +7,7 @@ import { onMounted, ref, onUnmounted } from "vue";
 import * as echarts from 'echarts';
 
 const props = defineProps({
-  echartsLine: {
+  echartsLineMulti: {
     type: Object,
     required: true
   }
@@ -42,55 +42,59 @@ const relieve = () => {
   }
 }
 const renderChart = () => {
+  const series: any = [];
+  Object.keys(props.echartsLineMulti.seriesData).forEach((key: string) => {
+    series.push(
+      {
+        name: key,
+        type: 'line',
+        data: [...props.echartsLineMulti.seriesData[key]],
+        showSymbol: false,
+      }
+    );
+  });
   const option = {
     grid: {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      containLabel: false,
+      top: 60,
+      bottom: 20,
+      left: 20,
+      right: 20,
+      containLabel: true,
     },
-    color: ['#B78FED'],
+    color: ['#1790FF', '#1BC4C4'],
     tooltip: {
       trigger: 'axis',
     },
+    legend: { show: true },
     xAxis: {
       type: 'category',
       boundaryGap: false,
-      data: [...props.echartsLine.axisData],
+      data: [...props.echartsLineMulti.axisData],
       axisLine: {
-        show: false,
-      }
+        lineStyle: {
+          color: 'rgba(0,0,0,0.85)'
+        }
+      },
+
     },
     yAxis: {
       type: 'value',
-      axisLabel: {
-        show: false,
-      },
       axisLine: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      max: Math.max(...props.echartsLine.seriesData),
-    },
-    series: [
-      {
-        name: props.echartsLine.name,
-        type: 'line',
-        data: [...props.echartsLine.seriesData],
-        areaStyle: {},
         lineStyle: {
-          width: 0
-        },
-        showSymbol: false,
-        smooth: true,
+          color: 'rgba(0,0,0,0.85)'
+        }
+      },
+      splitLine:{
+        lineStyle: {
+          type: 'dashed'
+        }
       }
-    ]
+    },
+
+    series: [...series]
   };
-  if (props.echartsLine.customFunc && typeof props.echartsLine.customFunc === 'function') {
-    props.echartsLine.customFunc(option);
+  if (props.echartsLineMulti.customFunc && typeof props.echartsLineMulti.customFunc === 'function') {
+    props.echartsLineMulti.customFunc(option);
   }
   chart.setOption(option);
 }
