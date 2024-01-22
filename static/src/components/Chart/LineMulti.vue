@@ -56,7 +56,7 @@ const renderChart = () => {
   const option = {
     grid: {
       top: 60,
-      bottom: 20,
+      bottom: 60,
       left: 20,
       right: 20,
       containLabel: true,
@@ -84,13 +84,13 @@ const renderChart = () => {
           color: 'rgba(0,0,0,0.85)'
         }
       },
-      splitLine:{
+      splitLine: {
         lineStyle: {
           type: 'dashed'
         }
       }
     },
-
+    dataZoom: [{}],
     series: [...series]
   };
   if (props.echartsLineMulti.customFunc && typeof props.echartsLineMulti.customFunc === 'function') {
