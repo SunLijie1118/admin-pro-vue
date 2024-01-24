@@ -38,6 +38,7 @@ declare module 'vue' {
     ARow: typeof import('ant-design-vue/es')['Row']
     ASpin: typeof import('ant-design-vue/es')['Spin']
     AStatistic: typeof import('ant-design-vue/es')['Statistic']
+    AStatisticCountdown: typeof import('ant-design-vue/es')['StatisticCountdown']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     ATable: typeof import('ant-design-vue/es')['Table']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
@@ -49,6 +50,7 @@ declare module 'vue' {
     Bar: typeof import('./src/components/Chart/Bar.vue')['default']
     ChartCard: typeof import('./src/components/Chart/ChartCard.vue')['default']
     copy: typeof import('./src/components/Chart/Bar copy.vue')['default']
+    EchartsMap: typeof import('./src/components/Chart/EchartsMap.vue')['default']
     Header: typeof import('./src/components/Header/Header.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
@@ -59,6 +61,8 @@ declare module 'vue' {
     LineBinCustom: typeof import('./src/components/Chart/LineBinCustom.vue')['default']
     LineCustom: typeof import('./src/components/Chart/LineCustom.vue')['default']
     LineMulti: typeof import('./src/components/Chart/LineMulti.vue')['default']
+    Map: typeof import('./src/components/Chart/Map.vue')['default']
+    MapScatter: typeof import('./src/components/Chart/MapScatter.vue')['default']
     MenuItem: typeof import('./src/components/SiderMenu/MenuItem.vue')['default']
     MiniProgress: typeof import('./src/components/Chart/MiniProgress.vue')['default']
     NumberInfo: typeof import('./src/components/NumberInfo.vue')['default']
@@ -73,5 +77,6 @@ declare module 'vue' {
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
     Trend: typeof import('./src/components/Chart/Trend.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
+    WorldMap: typeof import('./src/components/Chart/WorldMap.vue')['default']
   }
 }
