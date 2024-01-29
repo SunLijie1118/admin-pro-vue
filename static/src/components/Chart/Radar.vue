@@ -16,9 +16,11 @@ const props = defineProps({
 const container = ref(null);
 const chart = ref<any>(null);
 const resizeNamespace = '' + Date.now();
-watch(props.echartsRadar, (value, oldValue) => {
-  console.log(value);
-  console.log(oldValue);
+watch(props.echartsRadar, () => {
+  if (!chart.value) {
+    initChart();
+  }
+  renderChart();
 });
 onMounted(() => {
   initChart();

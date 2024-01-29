@@ -5,25 +5,16 @@
         <a-card title="活动实时交易情况" :bordered="false" class="mt-6 ml-6 mr-6">
           <a-row>
             <a-col :span="6">
-              <a-statistic title="今日交易总额" :value="124543233" />
-              <template #suffix>
-                元
-              </template>
+              <a-statistic title="今日交易总额" :value="124543233" :suffix="'元'" />
             </a-col>
             <a-col :span="6">
               <a-statistic title="销售目标完成率" :value="'92%'" />
-              <template #suffix>
-                元
-              </template>
             </a-col>
             <a-col :span="6">
               <a-statistic-countdown title="活动剩余时间" :value="deadline" @finish="onFinish" />
             </a-col>
             <a-col :span="6">
-              <a-statistic title="每秒交易总额" :value="234" />
-              <template #suffix>
-                元
-              </template>
+              <a-statistic title="每秒交易总额" :value="234" :suffix="'元'" />
             </a-col>
             <div class="map-chart">
               <map-scatter :echartsMap="echartsMap" class="map"></map-scatter>
@@ -33,14 +24,28 @@
       </a-col>
       <a-col :span="6">
         <a-card title="活动情况预测" :bordered="false" class="mt-6 mr-6">
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
+          <a-statistic title="目标评估" :value="'有望达到预期'" />
+          <div class="echarts pl-4 pr-4">
+            <line-custom :lineCustom="visitLine"></line-custom>
+          </div>
+          <div class="dashed-line">
+            <div class="line"></div>
+          </div>
+          <p class="active-number mb-4">{{ goalNumber }}亿元</p>
+          <div class="dashed-line">
+            <div class="line"></div>
+          </div>
+          <p class="active-number mb-4">{{ activeNumber }}亿元</p>
+          <div class="active-chart-legend">
+            <span>00:00</span>
+            <span>12:00</span>
+            <span>23:00</span>
+          </div>
         </a-card>
         <a-card title="券核效率" :bordered="false" class="mt-6 mr-6">
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
+          <div class="echarts" style="height: 205px;">
+            <gauge :echartsGauge="echartsGauge"></gauge>
+          </div>
         </a-card>
       </a-col>
     </a-row>
@@ -48,8 +53,12 @@
   </page-view>
 </template>
 <script lang="ts" setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+import * as dayjs from 'dayjs';
 import PageView from '@/layouts/PageView.vue';
 import MapScatter from '@/components/Chart/MapScatter.vue';
+import LineCustom from '@/components/Chart/LineCustom.vue';
+import Gauge from '@/components/Chart/Gauge.vue';
 
 const deadline = Date.now() + 1000 * 60 * 60 * 1;
 const onFinish = () => {
@@ -66,6 +75,45 @@ const echartsMap = {
   ]
 };
 
+let intervalId: any = null;
+const visitLine = ref<any>({
+  name: '活动情况',
+  axisData: [],
+  seriesData: []
+});
+const goalNumber = ref<number>();
+const activeNumber = ref<number>();
+
+const echartsGauge = ref<any>({
+  name: '券核效率',
+  value: 87.0,
+});
+// 制造图形绘制需要的假数据
+const calValue = () => {
+  const LEN = 24;
+  visitLine.value.axisData.length = 0;
+  visitLine.value.seriesData.length = 0;
+  for (let i = 0; i < LEN; i++) {
+    const axis = dayjs().startOf('date').add(i, 'hour').format('YYYY-MM-DD HH:MM:ss');
+    visitLine.value.axisData.push(axis);
+    visitLine.value.seriesData.push(Math.round(Math.random() * 10) + 3 * i);
+  }
+  goalNumber.value = visitLine.value.seriesData[LEN - 1];
+  activeNumber.value = visitLine.value.seriesData[LEN / 2];
+}
+
+onMounted(() => {
+  calValue();
+  if (!intervalId) {
+    intervalId = setInterval(() => {
+      calValue();
+    }, 1000 * 3);
+  }
+});
+
+onUnmounted(() => {
+  intervalId = null;
+})
 </script>
 
 <style lang="less">
@@ -78,5 +126,34 @@ const echartsMap = {
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.echarts {
+  width: 100%;
+  height: 60px;
+}
+
+.dashed-line {
+  position: relative;
+  height: 1px;
+  width: 100%;
+
+  .line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, transparent 50%, #e9e9e9 50%);
+    background-size: 6px;
+  }
+}
+
+.active-chart-legend {
+  height: 20px;
+  line-height: 20px;
+  display: flex;
+  justify-content: space-between;
+  @apply mt-6;
 }
 </style>

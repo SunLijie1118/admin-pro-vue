@@ -3,11 +3,10 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, onUnmounted } from "vue";
+import { onMounted, ref, onUnmounted, watch } from "vue";
 import axios from "axios";
 import { echartsMapService } from './map';
 import * as echarts from 'echarts';
-import { reduceEachLeadingCommentRange } from "typescript";
 
 const props = defineProps({
   echartsMap: {
@@ -22,6 +21,13 @@ const resizeNamespace = '' + Date.now();
 
 const mapService = new echartsMapService();
 const mapOption = mapService.mapOption;
+
+watch(props.echartsMap, () => {
+  if (!chart) {
+    initChart();
+  }
+  renderChart();
+});
 
 onMounted(() => {
   initChart();
@@ -124,7 +130,6 @@ const renderChart = () => {
   mapOption.visualMap.left = 'center';
   mapOption.visualMap.bottom = 0;
   mapOption.visualMap.itemGap = 100;
-  console.log(mapOption);
   registerMap(mapType, () => {
     chart.setOption(mapOption, false);
   });

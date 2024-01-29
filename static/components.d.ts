@@ -51,6 +51,7 @@ declare module 'vue' {
     ChartCard: typeof import('./src/components/Chart/ChartCard.vue')['default']
     copy: typeof import('./src/components/Chart/Bar copy.vue')['default']
     EchartsMap: typeof import('./src/components/Chart/EchartsMap.vue')['default']
+    Gauge: typeof import('./src/components/Chart/Gauge.vue')['default']
     Header: typeof import('./src/components/Header/Header.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
