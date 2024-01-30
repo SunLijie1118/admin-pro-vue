@@ -401,7 +401,6 @@ const getFakeChartData = () => {
   FakeChartData().then((data: any) => {
     middleSpinning.value = false;
     const temp = data.data.default.salesData;
-    console.log(data.data.default);
     temp.map((item: any) => {
       middleBar.value.axisData.push(item.x);
       middleBar.value.seriesData.push(item.y);

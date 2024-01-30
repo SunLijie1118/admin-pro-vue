@@ -93,7 +93,6 @@ const renderChart = () => {
     };
     option.series.push(serie);
   });
-  console.log(option);
   if (props.echartsMultiPie.customFunc && typeof props.echartsMultiPie.customFunc === 'function') {
     props.echartsMultiPie.customFunc(option);
   }
