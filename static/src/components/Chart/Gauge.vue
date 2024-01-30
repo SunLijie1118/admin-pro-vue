@@ -96,7 +96,6 @@ const renderChart = () => {
               default:
                 break;
             }
-            console.log(value);
           }
         },
         detail: {

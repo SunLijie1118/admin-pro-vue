@@ -62,10 +62,12 @@ declare module 'vue' {
     LineBinCustom: typeof import('./src/components/Chart/LineBinCustom.vue')['default']
     LineCustom: typeof import('./src/components/Chart/LineCustom.vue')['default']
     LineMulti: typeof import('./src/components/Chart/LineMulti.vue')['default']
+    Liquidfill: typeof import('./src/components/Chart/Liquidfill.vue')['default']
     Map: typeof import('./src/components/Chart/Map.vue')['default']
     MapScatter: typeof import('./src/components/Chart/MapScatter.vue')['default']
     MenuItem: typeof import('./src/components/SiderMenu/MenuItem.vue')['default']
     MiniProgress: typeof import('./src/components/Chart/MiniProgress.vue')['default']
+    MultiPie: typeof import('./src/components/Chart/MultiPie.vue')['default']
     NumberInfo: typeof import('./src/components/NumberInfo.vue')['default']
     Pie: typeof import('./src/components/Chart/Pie.vue')['default']
     Radar: typeof import('./src/components/Chart/Radar.vue')['default']
@@ -78,6 +80,7 @@ declare module 'vue' {
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
     Trend: typeof import('./src/components/Chart/Trend.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
+    Wordcloud: typeof import('./src/components/Chart/Wordcloud.vue')['default']
     WorldMap: typeof import('./src/components/Chart/WorldMap.vue')['default']
   }
 }
