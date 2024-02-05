@@ -49,6 +49,7 @@ declare module 'vue' {
     AvtivityH: typeof import('./src/components/AvtivityH.vue')['default']
     Bar: typeof import('./src/components/Chart/Bar.vue')['default']
     ChartCard: typeof import('./src/components/Chart/ChartCard.vue')['default']
+    CommonForm: typeof import('./src/components/Form/CommonForm.vue')['default']
     copy: typeof import('./src/components/Chart/Bar copy.vue')['default']
     EchartsMap: typeof import('./src/components/Chart/EchartsMap.vue')['default']
     Gauge: typeof import('./src/components/Chart/Gauge.vue')['default']

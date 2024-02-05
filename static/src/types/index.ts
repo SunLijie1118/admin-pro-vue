@@ -3,3 +3,4 @@ export interface Params {
 }
 export * from './breadcrumb';
 export * from './project';
+export * from './common-form';

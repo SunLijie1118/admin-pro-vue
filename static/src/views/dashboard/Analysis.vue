@@ -233,7 +233,7 @@ import NumberInfo from '@/components/NumberInfo.vue';
 import LineCustom from '@/components/Chart/LineCustom.vue';
 import LineMulti from '@/components/Chart/LineMulti.vue';
 import { FakeChartData } from '@/api/message';
-import type { analysisTableType } from '@/types/project';
+import type { analysisTableType } from '@/types';
 
 // 接口请求的加载状态
 const middleSpinning = ref(false);
