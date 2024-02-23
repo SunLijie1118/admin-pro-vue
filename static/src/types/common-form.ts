@@ -23,10 +23,12 @@ interface SelectCondition {
 
 interface TimeCondition {
   type: 'time'
+  picker: 'date' | 'week' | 'month' | 'quarter' | 'year'
 }
 
 interface SingleTimeCondition {
   type: 'single-time'
+  picker: 'date' | 'week' | 'month' | 'quarter' | 'year'
 }
 
 interface CheckboxCondition {
@@ -35,6 +37,12 @@ interface CheckboxCondition {
 
 interface RadioCondition {
   type: 'radio'
+  options: Array<{
+    value: string
+    label: string
+    disabled?: boolean
+  }>
+  optionType?: 'default' | 'button'
 }
 
 interface NullCondition {
@@ -51,15 +59,15 @@ type ConditionType =
   | RadioCondition
   | NullCondition
 
-interface CustomValidator {
+export interface CustomValidator {
   type: 'minLength' | 'maxLength' | 'pattern'
   minLength?: number
   maxLength?: number
-  pattern?: string | RegExp
+  pattern?: RegExp
 }
 
-interface CustomValidateFun {
-  (_rule: Rule, value: unknown): Promise<string | null>
+export interface CustomValidateFun {
+  (_rule: Rule, value: unknown): void | Promise<void>
 }
 export type CommonFromCondition = ConditionType & {
   show?: boolean
@@ -70,6 +78,7 @@ export type CommonFromCondition = ConditionType & {
   disabled?: boolean
   required?: boolean
   tooltip?: string
+  placeholder?: string
   validators?: Array<CustomValidator | CustomValidateFun>
   mode?: string
 }

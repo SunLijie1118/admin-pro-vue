@@ -1,6 +1,12 @@
+import type { Slot } from 'vue'
+
 export interface Params {
-  [key: string]: any;
+  [key: string]: any
 }
-export * from './breadcrumb';
-export * from './project';
-export * from './common-form';
+
+export type SlotParams = {
+  [key: string]: Slot
+}
+export * from './breadcrumb'
+export * from './project'
+export * from './common-form'

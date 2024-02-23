@@ -21,3 +21,8 @@ export const isEmpty = (value: any): boolean => {
       return false;
   }
 }
+
+
+export const isObject = (obj: unknown) => {
+  return obj && typeof obj === 'object' && Object.prototype.toString.call(obj).toLowerCase() === '[object object]';
+}

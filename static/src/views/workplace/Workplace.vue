@@ -189,15 +189,6 @@ onMounted(() => {
 </script>
 
 <style lang="less" scoped>
-.page-header-heading {
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 20px;
-  line-height: 32px;
-  font-weight: 600;
-  background: #fff;
-  @apply px-6 pt-5;
-}
-
 .page-header-content {
   background: #fff;
   @apply flex justify-between px-6 py-5;
