@@ -20,7 +20,7 @@
 import { ref, reactive } from 'vue';
 import PageView from '@/layouts/PageView.vue';
 import CommonForm from '@/components/Form/CommonForm.vue';
-import type { CommonFromCondition, Params } from '@/types';
+import type { CommonFromCondition } from '@/types';
 
 const conditions = ref<Array<CommonFromCondition>>(
   [

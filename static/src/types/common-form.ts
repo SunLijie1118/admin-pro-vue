@@ -1,4 +1,4 @@
-import type { Rule } from 'ant-design-vue/es/form'
+import type { Rule, RuleObject } from 'ant-design-vue/es/form'
 
 interface InputCondition {
   type: 'input'
@@ -66,9 +66,6 @@ export interface CustomValidator {
   pattern?: RegExp
 }
 
-export interface CustomValidateFun {
-  (_rule: Rule, value: unknown): void | Promise<void>
-}
 export type CommonFromCondition = ConditionType & {
   show?: boolean
   span?: number
@@ -79,6 +76,6 @@ export type CommonFromCondition = ConditionType & {
   required?: boolean
   tooltip?: string
   placeholder?: string
-  validators?: Array<CustomValidator | CustomValidateFun>
+  validators?: Array<CustomValidator | RuleObject>
   mode?: string
 }

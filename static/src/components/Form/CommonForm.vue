@@ -53,7 +53,9 @@
           </a-col>
         </template>
         <template v-if="condition.type === ''">
-          <slot :name="condition.field"></slot>
+          <a-col :span="condition.span" v-show="condition.show">
+            <slot :name="condition.field" :condition="condition"></slot>
+          </a-col>
         </template>
       </template>
     </a-row>
@@ -62,8 +64,8 @@
 <script lang="ts" setup>
 import { reactive, ref, watch, } from 'vue';
 import type { FormInstance } from 'ant-design-vue';
-import type { CommonFromCondition, Params, CustomValidator, CustomValidateFun } from '@/types';
-import type { Rule } from 'ant-design-vue/es/form';
+import type { CommonFromCondition, Params, CustomValidator } from '@/types';
+import type { Rule, RuleObject } from 'ant-design-vue/es/form';
 import { isObject } from '@/utils/base';
 
 const props = defineProps<{
@@ -109,11 +111,18 @@ watch(props.conditions, () => {
               break;
           }
         } else {
-          rules[item.field].push({ validator: validator as CustomValidateFun });
+          rules[item.field].push(validator as RuleObject);
         }
       })
 
     }
   });
+  setTimeout(() => {
+    emit('fieldValueChange', {
+      field: '',
+      value: formState,
+      form: formRef
+    });
+  }, 0);
 }, { immediate: true });
 </script>
