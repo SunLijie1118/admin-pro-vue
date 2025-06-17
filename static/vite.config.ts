@@ -5,7 +5,6 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import tailwindcss from 'tailwindcss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,10 +14,10 @@ export default defineConfig({
     Components({
       resolvers: [
         AntDesignVueResolver({
-          importStyle: false, // css in js
-        }),
-      ],
-    }),
+          importStyle: false // css in js
+        })
+      ]
+    })
   ],
   resolve: {
     alias: {
@@ -26,11 +25,12 @@ export default defineConfig({
     }
   },
   server: {
-    port: 4000
-  },
-  css: {
-    postcss: {
-      plugins: [tailwindcss]
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true
+      }
     }
   }
 })

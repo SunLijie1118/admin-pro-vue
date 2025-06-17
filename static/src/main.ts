@@ -7,7 +7,6 @@ import App from './App.vue'
 import router from './router'
 import dateToToday from './plugins/dateToToday'
 import countTransform from './plugins/countTransform'
-import Mock from './mock'
 
 const app = createApp(App)
 
